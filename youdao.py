@@ -33,13 +33,13 @@ class YoudaoError(Exception):
         return repr(self.msg)
 
 class Youdao(object):
-    def __init__(self, query):
-        self.url = URL + query
+    def __init__(self):
+        self.url = URL
         self.response = None
 
-    def search(self):
+    def search(self, words):
         try:
-            return  requests.get(self.url).text
+            return  requests.get(self.url + words).text
         except:
             raise YoudaoError("Fail to connect server")
 
@@ -61,15 +61,15 @@ class Youdao(object):
         else:
             raise YoudaoError(errno)
 
-    def translate(self):
-        self.parse(self.search())
+    def query(self, words):
+        self.parse(self.search(words))
 
 
 def main():
     if len(sys.argv) != 2:
         return error("USAGE: " + __file__ + " query")
-    youdao = Youdao(sys.argv[1])
-    youdao.translate()
+    youdao = Youdao()
+    youdao.query(sys.argv[1])
 
 
 if __name__ == '__main__':
