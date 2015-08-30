@@ -66,10 +66,10 @@ class Youdao(object):
 
 
 def main():
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         return error("USAGE: " + __file__ + " query")
     youdao = Youdao()
-    youdao.query(sys.argv[1])
+    youdao.query(" ".join(sys.argv[1:]))
 
 
 if __name__ == '__main__':
